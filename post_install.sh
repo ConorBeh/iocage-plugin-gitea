@@ -44,7 +44,7 @@ echo "MySQL Database Name: $DB" > /root/PLUGIN_INFO
 echo "MySQL Database User: $USER" >> /root/PLUGIN_INFO
 echo "MySQL Database Password: $PASS" >> /root/PLUGIN_INFO
 
-# Output database name, login, and password to terminal
+# Output database name, login, and password to UI and remind user where to find it again
 echo "MySQL Database Name: $DB" 
 echo "MySQL Database User: $USER" 
 echo "MySQL Database Password: $PASS" 
