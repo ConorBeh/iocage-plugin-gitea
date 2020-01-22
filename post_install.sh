@@ -22,7 +22,7 @@ export LC_ALL=C
 cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 16 | head -n 1 > /root/dbpassword
 PASS=`cat /root/dbpassword`
 
-# Configure mysql
+# Configure MySQL
 mysql --protocol=socket -u root <<-EOF
 CREATE DATABASE ${DB};
 ALTER USER 'root'@'localhost' IDENTIFIED BY '${PASS}';
