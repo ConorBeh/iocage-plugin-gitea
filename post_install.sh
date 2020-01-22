@@ -3,9 +3,10 @@ sysrc gitea_enable=YES 2>/dev/null
 sysrc mysql_enable=YES 2>/dev/null
 
 # Start/stop service to generate configs
-service gitea start
+service gitea start 2>/dev/null
 sleep 5
-service gitea stop
+service gitea stop 2>/dev/null
+sleep 5
 service mysql-server start 2>/dev/null
 
 # Remove default config to allow use of the web installer, set permissions
