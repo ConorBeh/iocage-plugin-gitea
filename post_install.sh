@@ -9,6 +9,7 @@ service gitea stop
 # Remove default config to allow use of the web installer, set permissions
 rm /usr/local/etc/gitea/conf/app.ini
 chown -R git:git /usr/local/etc/gitea/conf
+chown -R git:git /usr/local/share/gitea
 
 # Set up MySQL database
 # Set variables for username and database name
