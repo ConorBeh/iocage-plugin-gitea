@@ -13,8 +13,8 @@ chown -R git:git /usr/local/share/gitea
 
 # Set up MySQL database
 # Set variables for username and database name
-USER="dbadmin"
 DB="gitea"
+USER="dbadmin"
 
 # Save the config values and generate a random password 
 echo "$DB" > /root/dbname
