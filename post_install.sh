@@ -55,6 +55,9 @@ EOF
 
 # Start service
 service gitea start
+sleep 5
+# Make sure we get the installer
+rm /usr/local/etc/gitea/conf/app.ini 2>/dev/null
 
 # Send database name, login, and password to PLUGIN_INFO
 echo "MySQL Database Name: $DB" > /root/PLUGIN_INFO
