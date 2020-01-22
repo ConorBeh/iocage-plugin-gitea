@@ -1,10 +1,12 @@
 # Enable service
-sysrc gitea_enable=YES
+sysrc gitea_enable=YES 2>/dev/null
+sysrc mysql_enable=YES 2>/dev/null
 
 # Start/stop service to generate configs
 service gitea start
 sleep 5
 service gitea stop
+service mysql-server start 2>/dev/null
 
 # Remove default config to allow use of the web installer, set permissions
 rm /usr/local/etc/gitea/conf/app.ini
