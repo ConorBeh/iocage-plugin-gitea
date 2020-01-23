@@ -29,19 +29,6 @@ cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 16 | head -n 1 > /root/dbpasswor
 PASS=`cat /root/dbpassword`
 
 # Configure MySQL
-
-#mysql --protocol=socket -u root <<-EOF
-#CREATE DATABASE ${DB};
-#ALTER USER 'root'@'localhost' IDENTIFIED BY '${PASS}';
-#DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1');
-#DELETE FROM mysql.user WHERE User='';
-#DELETE FROM mysql.db WHERE Db='test' OR Db='test_%';
-#CREATE USER '${USER}'@'localhost' IDENTIFIED BY '${PASS}';
-#GRANT ALL PRIVILEGES ON *.* TO '${USER}'@'localhost' WITH GRANT OPTION;
-#GRANT ALL PRIVILEGES ON ${DB}.* TO '${USER}'@'localhost';
-#FLUSH PRIVILEGES;
-#EOF
-
 mysql -u root <<-EOF
 UPDATE mysql.user SET Password=PASSWORD('${PASS}') WHERE User='root';
 DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1');
@@ -64,11 +51,12 @@ rm /usr/local/etc/gitea/conf/app.ini 2>/dev/null
 echo "MySQL Database Name: $DB" > /root/PLUGIN_INFO
 echo "MySQL Database User: $USER" >> /root/PLUGIN_INFO
 echo "MySQL Database Password: $PASS" >> /root/PLUGIN_INFO
-
+echo "Access the web interface and click "Explore" to start the installer" >> /root/PLUGIN_INFO
 # Output database name, login, and password to UI and remind user where to find it again
 echo "MySQL Database Name: $DB" 
 echo "MySQL Database User: $USER" 
 echo "MySQL Database Password: $PASS" 
+echo "Access the web interface and click Explore to start the installer"
 echo "To view this information again, click Post Install Notes"
 
 
