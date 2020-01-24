@@ -58,22 +58,34 @@ echo "host  all  all 0.0.0.0/0 md5" >> /var/db/postgres/data11/pg_hba.conf 2>/de
 # Restart postgresql after config change
 service postgresql restart 2>/dev/null
 sleep 5
+
 # Save database information
 echo "Host: localhost or 127.0.0.1" > /root/PLUGIN_INFO
-echo "Database Type: Postgres" >> /root/PLUGIN_INFO
+echo "Database Type: PostgresSQL" >> /root/PLUGIN_INFO
 echo "Database Name: $DB" >> /root/PLUGIN_INFO
 echo "Database User: $USER" >> /root/PLUGIN_INFO
 echo "Database Password: $PASS" >> /root/PLUGIN_INFO
 
+echo "Figure out our Network IP"
+#Very Dirty Hack to get the ip for dhcp, the problem is that IOCAGE_PLUGIN_IP doesent work on DCHP clients
+#cat /var/db/dhclient.leases* | grep fixed-address | uniq | cut -d " " -f4 | cut -d ";" -f1 > /root/dhcpip
+#netstat -nr | grep lo0 | awk '{print $1}' | uniq | cut -d " " -f4 | cut -d ";" -f1 > /root/dhcpip
+netstat -nr | grep lo0 | grep -v '::' | grep -v '127.0.0.1' | awk '{print $1}' | head -n 1 > /root/dhcpip
+#netstat -nr | grep lo0 | awk '{print $1}' > /root/dhcpip 
+#sed -i.bak '2,$d' /root/dhcpip 
+IP=`cat /root/dhcpip`
+#rm /root/dhcpip.bak
+
 # Show user database details 
-echo "----------------------------------"
+echo "-------------------------------------------------------"
 echo "DATABASE INFORMATION"
-echo "----------------------------------"
+echo "-------------------------------------------------------"
 echo "Host: localhost or 127.0.0.1" 
-echo "Database Type: Postgres" 
+echo "Database Type: PostgresSQL" 
 echo "Database Name: $DB" 
 echo "Database User: $USER" 
 echo "Database Password: $PASS" 
+echo "To begin the installation go to http://${IP}:3000/install"
 echo "To review this information again click Post Install Notes"
 
 
