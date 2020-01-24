@@ -69,7 +69,7 @@ sleep 5
 service postgresql start 2>/dev/null
 sleep 5
 
-USER="pgadmin"
+USER="gitea"
 DB="gitea"
 
 # Save the config values
@@ -80,23 +80,23 @@ cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 16 | head -n 1 > /root/dbpasswor
 PASS=`cat /root/dbpassword`
 
 # create user
-psql -d template1 -U postgres -c "CREATE USER ${USER} CREATEDB SUPERUSER;"
+psql -d template1 -U postgres -c "CREATE USER ${USER} CREATEDB SUPERUSER;" 2>/dev/null
 
 # Create production database & grant all privileges on database
-psql -d template1 -U postgres -c "CREATE DATABASE ${DB} OWNER ${USER};"
+psql -d template1 -U postgres -c "CREATE DATABASE ${DB} OWNER ${USER};" 2>/dev/null
 
 # Set a password on the postgres account
-psql -d template1 -U postgres -c "ALTER USER ${USER} WITH PASSWORD '${PASS}';"
+psql -d template1 -U postgres -c "ALTER USER ${USER} WITH PASSWORD '${PASS}';" 2>/dev/null
 
 # Connect as superuser and enable pg_trgm extension
-psql -U postgres -d ${DB} -c "CREATE EXTENSION IF NOT EXISTS pg_trgm;"
+psql -U postgres -d ${DB} -c "CREATE EXTENSION IF NOT EXISTS pg_trgm;" 2>/dev/null
 
 # Fix permission for postgres 
-echo "listen_addresses = '*'" >> /var/db/postgres/data11/postgresql.conf
-echo "host  all  all 0.0.0.0/0 md5" >> /var/db/postgres/data11/pg_hba.conf
+echo "listen_addresses = '*'" >> /var/db/postgres/data11/postgresql.conf 2>/dev/null
+echo "host  all  all 0.0.0.0/0 md5" >> /var/db/postgres/data11/pg_hba.conf 2>/dev/null
 
 # Restart postgresql after config change
-service postgresql restart
+service postgresql restart 2>/dev/null
 sleep 5
 
 echo "Host: localhost" > /root/PLUGIN_INFO
