@@ -88,8 +88,3 @@ echo "Database User: $USER"
 echo "Database Password: $PASS" 
 echo "To begin the installation go to http://${IP}:3000/install"
 echo "To review this information again click Post Install Notes"
-
-
-
-
-
