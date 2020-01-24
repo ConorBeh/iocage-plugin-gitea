@@ -66,6 +66,7 @@ echo "Database Name: $DB" >> /root/PLUGIN_INFO
 echo "Database User: $USER" >> /root/PLUGIN_INFO
 echo "Database Password: $PASS" >> /root/PLUGIN_INFO
 
+# Thank you Asigra plugin for your service on this hack
 echo "Figure out our Network IP"
 #Very Dirty Hack to get the ip for dhcp, the problem is that IOCAGE_PLUGIN_IP doesent work on DCHP clients
 #cat /var/db/dhclient.leases* | grep fixed-address | uniq | cut -d " " -f4 | cut -d ";" -f1 > /root/dhcpip
