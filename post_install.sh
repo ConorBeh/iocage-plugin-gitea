@@ -3,6 +3,11 @@
 # Enable service
 sysrc gitea_enable=YES 2>/dev/null
 
+# Enable SSH for git over ssh
+sysrc sshd_enable=YES 2>/dev/null
+service sshd start 2>/dev/null
+sleep 5
+
 # Start/stop service to generate configs
 service gitea start 2>/dev/null
 sleep 5
